@@ -1,0 +1,546 @@
+---
+title: "IPL 2008-2019 Dataset Analysis"
+author: "Debmalya Biswas"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    df_print: paged
+geometry: "left=1cm,right=1cm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align = "center")
+```
+
+## Introduction
+
+The Indian Premier League (**IPL**) is a Men's T20 franchise cricket league of India that started in 2008. In 2010, the IPL became the first sporting event in the world to be broadcast live on YouTube. The brand value of the IPL in 2019 was ₹47,500 crore (US\$5.9 billion). The IPL is the most-attended cricket league in the world and in 2014 was ranked sixth by average attendance among all sports leagues. In this visualization project, we are gonna perform Exploratory Data Analysis (**EDA**) on IPL 2008-2019 dataset by exploring through various statistical queries that might interest an inquisitive cricket mind.
+
+## Dataset & Variables
+
+**Source**: <https://www.kaggle.com/anuranroy/ipldatasets>
+
+```{r}
+D <- read.csv("C:/Users/Hrik/Desktop/VISU/VISUPROJ/IPL/deliveries2.csv")
+M <- read.csv("C:/Users/Hrik/Desktop/VISU/VISUPROJ/IPL/matches.csv")
+# Season-wise <- S
+# Player-wise <- P
+# Team-wise <- T
+# Venue-wise <- V
+
+library(tidyverse)
+```
+
+The dataset comprises of 2 csv files:
+
+-   **deliveries2.csv**: This dataset consists of 179078 rows and 22 columns. It contains ball-by-ball delivery-wise statistics of every match played in the period 2008-2019. The variables are as follows:
+
+```{r}
+knitr::kable(data.frame(Variable = names(D),
+                        Type = c("Numeric (discrete)","Binary","Nominal","Nominal","Numeric (discrete)","Numeric (discrete)","Nominal","Nominal","Nominal","Binary",rep("Numeric (discrete)", 8),rep("Nominal", 4)),
+                        Description = c("match id number","1 denotes 1st innings, 2 denotes 2nd innings","name of the batting team","name of the bowling team","over number in a match","ball number in an over","name of the striking batsman in the delivery","name of the non-striking batsman in the delivery","name of the bowler","1 if it is a super over delivery else 0","runs for the batting team due to a wide ball delivery","bye runs","legbye runs","runs due to a no-ball delivery","penalty runs","runs scored by the batsman in the delivery","total extra runs scored in the delivery","total runs scored in the delivery","player dismissed in the delivery","type of dismissal","fielder who contributed in the dismissal","winner of the match")))
+```
+
+-   **matches.csv**: This dataset consists of 756 rows and 18 columns. It contains match-wise statistics of every match played in the period 2008-2019. The variables are as follows:
+
+```{r}
+knitr::kable(data.frame(Variable = names(M),
+                        Type = c("Numeric (discrete)","Numeric (discrete)","Nominal","Ordinal",rep("Nominal",3),"Binary","Nominal","Binary","Nominal","Numeric (discrete)","Numeric (discrete)",rep("Nominal", 5)),
+                        Description = c("match id number","IPL season","city hosting the match","date of the match","first team","second team","team winning the toss","toss winning team's decision to field or bat","result type of the match is normal, tie or no result","1 if dls method applied else 0","winner of the match","run difference if won by runs","wicket difference if won by wickets","player of the match","venue where the match is played","1st umpire","2nd umpire","3rd umpire")))
+```
+
+\pagebreak
+
+## Data Analysis (DA)
+
+### Player-wise
+
+-   Top 10 Run Scorers in IPL
+
+```{r P1}
+D %>% 
+  group_by(batsman) %>% 
+  summarize(runs = sum(batsman_runs)) %>% 
+  arrange(desc(runs)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(batsman,runs), y = runs, fill = batsman))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = runs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Runs", title = "Total Runs Scored by a Player", fill = "Batsman")+
+  scale_y_continuous(limits = c(0,5600))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Top 10 Wicket Takers in IPL
+
+```{r P2}
+D %>% 
+  filter(dismissal_kind %in% c("caught","bowled","caught and bowled","lbw","stumped","hit wicket")) %>% 
+  group_by(bowler) %>% 
+  summarize(wickets = n()) %>% 
+  arrange(desc(wickets)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(bowler,wickets), y = wickets, fill = bowler))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = wickets),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Wickets", title = "Total Wickets Taken by a Player", fill = "Bowler")+
+  scale_y_continuous(limits = c(0,175))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Top 10 Six Hitters in IPL
+
+```{r P3}
+D %>% 
+  filter(batsman_runs == 6) %>% 
+  group_by(batsman) %>% 
+  summarize(sixes = n()) %>% 
+  arrange(desc(sixes)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(batsman, sixes), y = sixes, fill = batsman))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = sixes),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Sixes", title = "Total Sixes Hit by a Player", fill = "Batsman")+
+  scale_y_continuous(limits = c(0,335))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Top 10 Boundary Hitters in IPL
+
+```{r P4}
+D %>% 
+  filter(batsman_runs == 4) %>% 
+  group_by(batsman) %>% 
+  summarize(fours = n()) %>% 
+  arrange(desc(fours)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(batsman, fours), y = fours, fill = batsman))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = fours),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Fours", title = "Total Boundaries Hit by a Player", fill = "Batsman")+
+  scale_y_continuous(limits = c(0,540))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Top 10 Individual Run Scorers in a Match
+
+```{r P5}
+indv <- D %>% 
+  group_by(match_id, batsman) %>% 
+  summarize(inning_runs = sum(batsman_runs)) %>% 
+  arrange(desc(inning_runs)) %>% 
+  head(10)
+indv %>% 
+  ggplot(aes(x = reorder(as.character(match_id), inning_runs), y = inning_runs, fill = batsman))+
+  geom_bar(stat = "identity")+
+  scale_x_discrete(labels = rev(indv$batsman))+
+  geom_text(aes(label = inning_runs),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Runs", title = "Total Runs Scored in an Inning by a Player", fill = "Batsman")+
+  scale_y_continuous(limits = c(0,180))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Top 5 Players with Most IPL Centuries
+
+```{r P6}
+D %>% 
+  group_by(match_id, batsman) %>% 
+  summarize(inning_runs = sum(batsman_runs)) %>% 
+  arrange(desc(inning_runs)) %>% 
+  filter(inning_runs >= 100) %>% 
+  group_by(batsman) %>% 
+  summarize(centuries = n()) %>%
+  arrange(desc(centuries)) %>% 
+  head(5) %>% 
+  ggplot(aes(x = reorder(batsman, centuries), y = centuries, fill = batsman))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = centuries),size = 4.5, position = position_dodge(width = 0.4), vjust = 0.3, hjust = -0.4)+
+  coord_flip()+
+  labs(x = "Player", y = "Centuries", title = "Total Number of Centuries Hit by a Player", fill = "Batsman")+
+  scale_y_continuous(limits = c(0,7.2))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Top 10 Players with Most IPL Fifties
+
+```{r P7}
+D %>% 
+  group_by(match_id, batsman) %>% 
+  summarize(inning_runs = sum(batsman_runs)) %>% 
+  arrange(desc(inning_runs)) %>% 
+  filter(inning_runs >= 50) %>% 
+  group_by(batsman) %>% 
+  summarize(fifties = n()) %>%
+  arrange(desc(fifties)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(batsman, fifties), y = fifties, fill = batsman))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = fifties),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Fifties", title = "Total Number of Fifties Hit by a Player", fill = "Batsman")+
+  scale_y_continuous(limits = c(0,50))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   IPL Players with Most Sixes Hit in a Match
+
+```{r P8}
+six_freqs <- D %>% 
+  filter(batsman_runs == 6) %>% 
+  group_by(match_id, batsman) %>% 
+  summarize(freq = n()) %>% 
+  arrange(desc(freq)) %>% 
+  head(12)
+six_freqs %>%
+  ggplot(aes(x = reorder(as.character(match_id), freq), y = freq, fill = batsman))+
+  geom_bar(stat = "identity")+
+  scale_x_discrete(labels = rev(six_freqs$batsman))+
+  geom_text(aes(label = freq), size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Sixes Hit", title = "Total Sixes Hit in a Match", fill = "Batsman")+
+  scale_y_continuous(limits = c(0,18))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Most Man of The Match Award Winners in IPL
+
+```{r P9}
+M %>% 
+  group_by(player_of_match) %>% 
+  summarize(most_pom = n()) %>% 
+  arrange(desc(most_pom)) %>% 
+  head(12) %>% 
+  ggplot(aes(x = reorder(player_of_match, most_pom), y = most_pom, fill = player_of_match))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = most_pom),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Awards", title = "Most MoM Winner", fill = "Player")+
+  scale_y_continuous(limits = c(0,22))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+- Top 10 
+### Team-wise
+
+-   Total Wins by Teams in IPL
+
+```{r T1}
+M %>%
+  filter(result == 'normal') %>% 
+  group_by(winner)%>%
+  summarize(total_win = n())%>%
+  ggplot(aes(x = reorder(winner, total_win),y = total_win,fill = winner))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = total_win),size = 2.5,position=position_dodge(width=0.7), vjust=0.3, hjust=-0.2)+
+  coord_flip()+
+  labs(x = "Winning Team", y = "Number of wins", title = "Total Matches Won by a Team", fill = "IPL Team")+
+  scale_y_continuous(limits = c(0,115))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"),
+        legend.key.size = unit(0.3, "cm"),
+        legend.text = element_text(size = 8))
+```
+
+\pagebreak
+
+-   Total Runs Scored by Teams in IPL
+
+```{r T2}
+D %>% 
+  group_by(batting_team) %>% 
+  summarize(team_runs = sum(total_runs)) %>% 
+  ggplot(aes(x = reorder(batting_team, team_runs), y = team_runs, fill = batting_team))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = team_runs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Team", y = "Runs", title = "Total Runs Scored by a Team", fill = "IPL Team")+
+  scale_y_continuous(limits = c(0, 33000))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"),
+        legend.key.size = unit(0.3, "cm"),
+        legend.text = element_text(size = 8))
+```
+
+\pagebreak
+
+-   Highest Total by Teams in IPL
+
+```{r T3}
+highest_total <- D %>% 
+  group_by(match_id, batting_team) %>% 
+  summarize(total = sum(total_runs)) %>% 
+  arrange(desc(total)) %>% 
+  head(10)
+highest_total %>% 
+  ggplot(aes(x = reorder(as.character(match_id), total), y = total, fill = batting_team))+
+  geom_bar(stat = "identity")+
+  scale_x_discrete(labels = rev(highest_total$batting_team))+
+  geom_text(aes(label = total),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Team", y = "Total", title = "Highest Team Totals", fill = "IPL Team")+
+  scale_y_continuous(limits = c(0,280))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+### Season-wise
+
+-   Number of Matches Played Each Season
+
+```{r S1}
+Season <- as.character(sort(unique(M$season)))
+M %>% 
+  group_by(season) %>%
+  summarize(matches_played = n()) %>% 
+  ggplot(aes(x = Season, y = matches_played, fill = Season))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = matches_played),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "IPL Season", y = "Number of Matches", title = "Total Matches Played per Season")+
+  theme_bw()+
+  scale_y_continuous(limits = c(0,80))+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(color = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Highest Run Scorer by Season in IPL
+
+```{r S2}
+full_data <- D %>%
+  left_join(M, by = c("match_id" ="id"))
+full_data %>% 
+  group_by(season, batsman) %>% 
+  summarize(runs = sum(batsman_runs)) %>% 
+  filter(runs == max(runs)) %>% 
+  ggplot(aes(x = as.character(season), y = runs, fill = batsman))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = runs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Season", y = "Runs", title = "Highest Run Scorer", fill = "Batsman")+
+  scale_y_continuous(limits = c(0,1000))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Highest Wicket Taker by Season in IPL
+
+```{r S3}
+full_data %>% 
+  filter(dismissal_kind %in% c("caught","bowled","caught and bowled","lbw","stumped","hit wicket")) %>%
+  group_by(season, bowler) %>% 
+  summarize(wickets = n()) %>%
+  filter(wickets == max(wickets)) %>% 
+  ggplot(aes(x = as.character(season), y = wickets, fill = bowler))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = wickets),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Season", y = "Runs", title = "Highest Wicket Taker", fill = "Bowler")+
+  scale_y_continuous(limits = c(0,33))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Most Six Hitters by Season
+
+```{r}
+six_hitter <- full_data %>%
+  filter(batsman_runs == 6) %>% 
+  group_by(season, batsman) %>% 
+  summarize(runs = n()) %>% 
+  filter(runs == max(runs))
+six_hitter %>% 
+  ggplot(aes(x = paste(season,batsman), y = runs, fill = batsman))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = runs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  scale_x_discrete(labels = six_hitter$season)+
+  coord_flip()+
+  labs(x = "Season", y = "Runs", title = "Most Six Hitter", fill = "Batsman")+
+  scale_y_continuous(limits = c(0,60))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Most Boundary Hitters by Season
+
+```{r}
+four_hitter <- full_data %>%
+  filter(batsman_runs == 4) %>% 
+  group_by(season, batsman) %>% 
+  summarize(runs = n()) %>% 
+  filter(runs == max(runs))
+four_hitter %>% 
+  ggplot(aes(x = paste(season,batsman), y = runs, fill = batsman))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = runs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  scale_x_discrete(labels = four_hitter$season)+
+  coord_flip()+
+  labs(x = "Season", y = "Runs", title = "Most Boundary Hitter", fill = "Batsman")+
+  scale_y_continuous(limits = c(0,90))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Total Sixes Hit by Season
+
+```{r}
+full_data %>%
+  filter(batsman_runs == 6) %>% 
+  group_by(season) %>% 
+  summarize(sixes_hit = n()) %>% 
+  ggplot(aes(x = Season, y = sixes_hit, fill = Season))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = sixes_hit),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Season", y = "Overboundaries", title = "Total Sixes Hit", fill = "Season")+
+  scale_y_continuous(limits = c(0,900))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+-   Total Boundaries Hit by Season
+
+```{r}
+full_data %>%
+  filter(batsman_runs == 4) %>% 
+  group_by(season) %>% 
+  summarize(fours_hit = n()) %>% 
+  ggplot(aes(x = Season, y = fours_hit, fill = Season))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = fours_hit),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Season", y = "Boundaries", title = "Total Fours Hit", fill = "Season")+
+  scale_y_continuous(limits = c(0,2100))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+### Venue-wise
+
+-   Top 10 Venues with most IPL Matches Played
+
+```{r V1}
+M %>% 
+  group_by(venue) %>% 
+  summarize(total_match = n()) %>%
+  arrange(desc(total_match)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(venue,total_match),y = total_match))+
+  geom_bar(stat = "identity", fill = "#CCFF00")+
+  geom_text(aes(label = total_match),size = 2.5,position=position_dodge(width=0.7), vjust=0.3, hjust=1.2)+
+  coord_flip()+
+  labs(x = "Venue", y = "Number of Matches", title = "Total Matches played in a Venue")+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"))
+```
+
+\pagebreak
+
+## Conclusion
+
+We have successfully performed an EDA by exploring thorugh various general, batting and bowling queries grouping them by player, team, season and venue, and answering them in a visual way for ease of capturing the data analysis and statistics. 
