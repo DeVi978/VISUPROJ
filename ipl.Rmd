@@ -30,6 +30,8 @@ M <- read.csv("C:/Users/Hrik/Desktop/VISU/VISUPROJ/IPL/matches.csv")
 # Venue-wise <- V
 
 library(tidyverse)
+D <- D %>% 
+  filter(is_super_over == 0)
 ```
 
 The dataset comprises of 2 csv files:
@@ -279,7 +281,148 @@ M %>%
 
 \pagebreak
 
-- Top 10 
+- Top 10 "Bowled" (direct dismissal) Wicket Takers in IPL
+
+```{r P10}
+D %>% 
+  filter(dismissal_kind == "bowled") %>% 
+  group_by(bowler) %>% 
+  summarize(wickets = n()) %>% 
+  arrange(desc(wickets)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(bowler,wickets), y = wickets, fill = bowler))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = wickets),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Bowled Wickets", title = "Total Bowled Wickets Taken", fill = "Bowler")+
+  scale_y_continuous(limits = c(0,65))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+\pagebreak
+
+- Top 10 Powerplay Bowlers in IPL
+
+```{r P11}
+D %>% 
+  filter(over <= 6) %>% 
+  group_by(bowler) %>% 
+  summarize(wickets = sum(dismissal_kind %in% c("caught","bowled","caught and bowled","lbw","stumped","hit wicket"))) %>% 
+  arrange(desc(wickets)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(bowler,wickets), y = wickets, fill = bowler))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = wickets),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Wickets", title = "Total Powerplay Wickets Taken by a Player", fill = "Bowler")+
+  scale_y_continuous(limits = c(0,55))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+- Top 10 Death Bowlers in IPL
+
+```{r P12}
+D %>% 
+  filter(over >= 15) %>% 
+  group_by(bowler) %>% 
+  summarize(wickets = sum(dismissal_kind %in% c("caught","bowled","caught and bowled","lbw","stumped","hit wicket"))) %>% 
+  arrange(desc(wickets)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(bowler,wickets), y = wickets, fill = bowler))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = wickets),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Wickets", title = "Total Death Wickets Taken by a Player", fill = "Bowler")+
+  scale_y_continuous(limits = c(0,120))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+- Most Runs conceded by a Bowler in a Match
+
+```{r P13}
+concede <- D %>% 
+  group_by(match_id, bowler) %>% 
+  summarize(runs_conceded = sum(batsman_runs) + sum(wide_runs) + sum(noball_runs)) %>% 
+  arrange(desc(runs_conceded)) %>% 
+  head(10)
+concede %>% 
+  ggplot(aes(x = reorder(as.character(match_id), runs_conceded), y = runs_conceded, fill = bowler))+
+  geom_bar(stat = "identity")+
+  scale_x_discrete(labels = rev(concede$bowler))+
+  geom_text(aes(label = runs_conceded),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Runs", title = "Total Runs conceded by a Bowler in a Match", fill = "Bowler")+
+  scale_y_continuous(limits = c(0,75))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+- Most Dot Balls by a Bowler in IPL
+
+```{r P14}
+D %>% 
+  filter(wide_runs == 0 & noball_runs == 0 & batsman_runs == 0) %>%
+  group_by(bowler) %>% 
+  summarize(dot_balls = n()) %>% 
+  arrange(desc(dot_balls)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(bowler,dot_balls), y = dot_balls, fill = bowler))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = dot_balls),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Player", y = "Runs", title = "Most Dot Balls by a Bowler overall", fill = "Bowler")+
+  scale_y_continuous(limits = c(0,1350))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+- Most No-balls by Bowlers in IPL
+
+```{r P15}
+D %>% 
+  filter(noball_runs != 0) %>% 
+  group_by(bowler) %>% 
+  summarize(noballs = n()) %>% 
+  arrange(desc(noballs)) %>% 
+  head(12) %>% 
+  ggplot(aes(x = reorder(bowler, noballs), y = noballs, fill = bowler))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = noballs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Team", y = "Runs", title = "Total No-balls by a Bowler", fill = "Bowler")+
+  scale_y_continuous(limits = c(0, 23))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
 ### Team-wise
 
 -   Total Wins by Teams in IPL
@@ -350,6 +493,78 @@ highest_total %>%
         plot.background = element_rect(colour = "black"),
         legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
         panel.background = element_rect(fill = "#FFFFCC"))
+```
+
+\pagebreak
+
+- Total Wickets Taken by Teams in IPL
+
+```{r T4}
+D %>% 
+  filter(dismissal_kind %in% c("caught","bowled","caught and bowled","lbw","stumped","hit wicket")) %>% 
+  group_by(bowling_team) %>% 
+  summarize(wickets_taken = n()) %>% 
+  ggplot(aes(x = reorder(bowling_team, wickets_taken), y = wickets_taken, fill = bowling_team))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = wickets_taken),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Team", y = "Runs", title = "Total Wickets Taken by a Team", fill = "IPL Team")+
+  scale_y_continuous(limits = c(0, 1100))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"),
+        legend.key.size = unit(0.3, "cm"),
+        legend.text = element_text(size = 8))
+```
+
+\pagebreak
+
+- Total No-balls by Teams in IPL
+
+```{r T5}
+D %>% 
+  filter(noball_runs != 0) %>% 
+  group_by(bowling_team) %>% 
+  summarize(noballs = n()) %>% 
+  ggplot(aes(x = reorder(bowling_team, noballs), y = noballs, fill = bowling_team))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = noballs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Team", y = "Runs", title = "Total No-balls by a Team", fill = "IPL Team")+
+  scale_y_continuous(limits = c(0, 110))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"),
+        legend.key.size = unit(0.3, "cm"),
+        legend.text = element_text(size = 8))
+```
+
+\pagebreak
+
+- Most Extra Runs conceded by Teams in IPL
+
+```{r T6}
+D %>% 
+  group_by(bowling_team) %>% 
+  summarize(extras = sum(extra_runs)) %>% 
+  arrange(desc(extras)) %>% 
+  ggplot(aes(x = reorder(bowling_team, extras), y = extras, fill = bowling_team))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = extras),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
+  coord_flip()+
+  labs(x = "Team", y = "Extra Runs", title = "Total Extra Runs conceded by a Team", fill = "IPL Team")+
+  scale_y_continuous(limits = c(0, 1700))+
+  theme_bw()+
+  theme(plot.title = element_text(face = "italic", size = 12),
+        plot.background = element_rect(colour = "black"),
+        legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
+        panel.background = element_rect(fill = "#FFFFCC"),
+        legend.key.size = unit(0.3, "cm"),
+        legend.text = element_text(size = 8))
 ```
 
 \pagebreak
@@ -427,7 +642,7 @@ full_data %>%
 
 -   Most Six Hitters by Season
 
-```{r}
+```{r S4}
 six_hitter <- full_data %>%
   filter(batsman_runs == 6) %>% 
   group_by(season, batsman) %>% 
@@ -452,7 +667,7 @@ six_hitter %>%
 
 -   Most Boundary Hitters by Season
 
-```{r}
+```{r S5}
 four_hitter <- full_data %>%
   filter(batsman_runs == 4) %>% 
   group_by(season, batsman) %>% 
@@ -477,7 +692,7 @@ four_hitter %>%
 
 -   Total Sixes Hit by Season
 
-```{r}
+```{r S6}
 full_data %>%
   filter(batsman_runs == 6) %>% 
   group_by(season) %>% 
@@ -499,7 +714,7 @@ full_data %>%
 
 -   Total Boundaries Hit by Season
 
-```{r}
+```{r S7}
 full_data %>%
   filter(batsman_runs == 4) %>% 
   group_by(season) %>% 
