@@ -509,7 +509,7 @@ D %>%
   geom_text(aes(label = wickets_taken),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
   labs(x = "Team", y = "Runs", title = "Total Wickets Taken by a Team", fill = "IPL Team")+
-  scale_y_continuous(limits = c(0, 1100))+
+  scale_y_continuous(limits = c(0, 1150))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
         plot.background = element_rect(colour = "black"),
@@ -557,7 +557,7 @@ D %>%
   geom_text(aes(label = extras),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
   labs(x = "Team", y = "Extra Runs", title = "Total Extra Runs conceded by a Team", fill = "IPL Team")+
-  scale_y_continuous(limits = c(0, 1700))+
+  scale_y_continuous(limits = c(0, 1750))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
         plot.background = element_rect(colour = "black"),
