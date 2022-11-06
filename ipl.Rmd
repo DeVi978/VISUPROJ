@@ -6,6 +6,8 @@ output:
   pdf_document:
     latex_engine: xelatex
     df_print: paged
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -57,7 +59,7 @@ knitr::kable(data.frame(Variable = names(M),
 
 ### Player-wise
 
--   Top 10 Run Scorers in IPL:
+-   Highest Run Scorers in IPL:
 
 ```{r P1}
 D %>% 
@@ -78,11 +80,11 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: The "Run-Machine" Virat Kohli tops the list with 5434 runs, followed closely by Suresh Raina with 5415 runs and then Rohit Sharma. 7 of the top 10 run scorers are Indian.
+- *Comment*: The "Run-Machine" Virat Kohli tops the list with 5429 runs, followed closely by Suresh Raina with 5407 runs and then Rohit Sharma with 4914 runs. David Warner (4741), Chris Gayle (4535) and AB de Villers (4415) are the only foreign players in this list.
 
 \pagebreak
 
--   Top 10 Wicket Takers in IPL:
+-   Highest Wicket Takers in IPL:
 
 ```{r P2}
 D %>% 
@@ -95,7 +97,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = wickets),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Player", y = "Wickets", title = "Total Wickets Taken by a Player", fill = "Bowler")+
+  labs(x = "Player", y = "Number of Wickets", title = "Total Wickets Taken by a Player", fill = "Bowler")+
   scale_y_continuous(limits = c(0,175))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -104,11 +106,11 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Lasith Malinga tops the most wicket takers list with 170 wickets, followed by Amit Mishra (156) and Harbhajan Singh (150). Dwayne Bravo and Sunil Narine are the only other Overseas players in this list.
+- *Comment*: Lasith Malinga tops the most wicket takers list with 170 wickets, followed by Amit Mishra (156) and Harbhajan Singh (150). Dwayne Bravo (147) and Sunil Narine (122) are the only other Overseas players in this list.
 
 \pagebreak
 
--   Top 10 Six Hitters in IPL:
+-   Most Six Hitters in IPL:
 
 ```{r P3}
 D %>% 
@@ -121,7 +123,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = sixes),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Player", y = "Sixes", title = "Total Sixes Hit by a Player", fill = "Batsman")+
+  labs(x = "Player", y = "Number of Sixes", title = "Total Sixes Hit by a Player", fill = "Batsman")+
   scale_y_continuous(limits = c(0,335))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -130,11 +132,11 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: The "Universe Boss" Chris Gayle tops this list hitting a humongous number of 327 sixes in his IPL career 2008-2019, "not-so-close"-ly followed by AB de Villers (214) and Mahendra Singh Dhoni (207). Other foreign players in this list are David Warner, Shane Watson and Kieron Pollard.
+- *Comment*: The "Universe Boss" Chris Gayle tops this list hitting a humongous number of 326 sixes in his IPL career 2008-2019, "not-so-close"-ly followed by AB de Villers (212) and Mahendra Singh Dhoni (207). Other foreign players in this list are David Warner (181), Shane Watson (177) and Kieron Pollard (174).
 
 \pagebreak
 
--   Top 10 Boundary Hitters in IPL:
+-   Most Boundary Hitters in IPL:
 
 ```{r P4}
 D %>% 
@@ -147,7 +149,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = fours),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Player", y = "Fours", title = "Total Boundaries Hit by a Player", fill = "Batsman")+
+  labs(x = "Player", y = "Number of Fours", title = "Total Boundaries Hit by a Player", fill = "Batsman")+
   scale_y_continuous(limits = c(0,540))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -156,11 +158,11 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: "Gabbar" Shikhar Dhawan has hit the most boundaries (526) in IPL 2008-2019, followed by Suresh Raina (495) and Gautam Gambhir (492). David Warner and Chris Gayle are the only foreign players in this list.
+- *Comment*: "Gabbar" Shikhar Dhawan has hit the most boundaries (526) in IPL 2008-2019, followed by Suresh Raina (495) and Gautam Gambhir (492). David Warner (459) and Chris Gayle (373) are the only foreign players in this list.
 
 \pagebreak
 
--   Top 10 Individual Run Scorers in a Match:
+-   Highest Individual Run Scorers in a Match:
 
 ```{r P5}
 indv <- D %>% 
@@ -183,7 +185,7 @@ indv %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Chris Gayle has scored the most runs, a huge 175 in an inning, followed by Brendon McCullum (158) and AB de Villers (133). Rishabh Pant (130), Murli Vijay (127) and Virendra Sehwag (122) are the only Indian players in this list.
+- *Comment*: Chris Gayle has scored the most runs, a humongous 175 in an inning, followed by Brendon McCullum (158) and AB de Villers (133). Rishabh Pant (130), Murli Vijay (127) and Virendra Sehwag (122) are the only Indian players in this list.
 
 \pagebreak
 
@@ -203,7 +205,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = centuries),size = 4.5, position = position_dodge(width = 0.4), vjust = 0.3, hjust = -0.4)+
   coord_flip()+
-  labs(x = "Player", y = "Centuries", title = "Total Number of Centuries Hit by a Player", fill = "Batsman")+
+  labs(x = "Player", y = "Number of Centuries", title = "Total Number of Centuries Hit by a Player", fill = "Batsman")+
   scale_y_continuous(limits = c(0,7.2))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -232,7 +234,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = fifties),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Player", y = "Fifties", title = "Total Number of Fifties Hit by a Player", fill = "Batsman")+
+  labs(x = "Player", y = "Number of Fifties", title = "Total Number of Fifties Hit by a Player", fill = "Batsman")+
   scale_y_continuous(limits = c(0,50))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -241,8 +243,8 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: David Warner has been the most consistent player with the most number of fifties (48), followed by Virat Kohli (43) and Suresh Raina (39). 
-
+- *Comment*: David Warner has been the most consistent player in IPL 2008-2019 with the most number of fifties (48), followed by Virat Kohli (42) and Suresh Raina (39). AB de Villers with 36 fifties and Chris Gayle with 34 fifties are the only foreign players in the list.
+ 
 \pagebreak
 
 -   IPL Players with Most Sixes Hit in a Match:
@@ -260,7 +262,7 @@ six_freqs %>%
   scale_x_discrete(labels = rev(six_freqs$batsman))+
   geom_text(aes(label = freq), size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Player", y = "Sixes Hit", title = "Total Sixes Hit in a Match", fill = "Batsman")+
+  labs(x = "Player", y = "Number of Sixes", title = "Total Sixes Hit in a Match by a Player", fill = "Batsman")+
   scale_y_continuous(limits = c(0,18))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -285,7 +287,7 @@ M %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = most_pom),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Player", y = "Awards", title = "Most MoM Winner", fill = "Player")+
+  labs(x = "Player", y = "Number of Awards", title = "Most MoM Winner", fill = "Player")+
   scale_y_continuous(limits = c(0,22))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -294,7 +296,7 @@ M %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Chris Gayle has been awarded Man of the Match 21 times, followed by AB de Villers (20) and Rohit Sharma (17).
+- *Comment*: Chris Gayle has been awarded Man of the Match 21 times, followed by AB de Villers (20) and Rohit Sharma (17). David Warner (17), Shane Watson (15) and Michael Hussey (12) are the only foreign players in this list.
 
 \pagebreak
 
@@ -311,7 +313,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = wickets),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Player", y = "Bowled Wickets", title = "Total Bowled Wickets Taken", fill = "Bowler")+
+  labs(x = "Player", y = "Number of Direct Dismissals", title = "Total 'Bowled' Wickets Taken by a Player", fill = "Bowler")+
   scale_y_continuous(limits = c(0,65))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -320,7 +322,7 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Lasith Malinga has the most number of direct "Bowled" dismissals numbering up to 63 taking a huge lead, followed by Piyush chawla (43).
+- *Comment*: Lasith Malinga has the most number of direct "Bowled" dismissals numbering up to 63 taking a huge lead, followed by Piyush chawla (43), Sunil Narine (35) and Bhuvaneshwar Kumar (35). Dale Steyn (26) is the only other foreign player in this list.
 
 \pagebreak
 
@@ -337,7 +339,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = wickets),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Player", y = "Wickets", title = "Total Powerplay Wickets Taken by a Player", fill = "Bowler")+
+  labs(x = "Player", y = "Number of Wickets", title = "Total Powerplay Wickets Taken by a Player", fill = "Bowler")+
   scale_y_continuous(limits = c(0,55))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -364,7 +366,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = wickets),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Player", y = "Wickets", title = "Total Death Wickets Taken by a Player", fill = "Bowler")+
+  labs(x = "Player", y = "Number of Wickets", title = "Total Death Wickets Taken by a Player", fill = "Bowler")+
   scale_y_continuous(limits = c(0,120))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -374,7 +376,7 @@ D %>%
 ```
 
 
-- *Comment*: Lasith Malinga tops the list by taking a total of 112 wickets in Death Overs only, followed by Dwayne Bravo (95) and Bhuvaneshwar Kumar (80).
+- *Comment*: Lasith Malinga tops the list by taking a total of 112 wickets in Death Overs only, followed by Dwayne Bravo (95) and Bhuvaneshwar Kumar (80). Dale Steyn (52) is the only other foreign player in this list.
 
 \pagebreak
 
@@ -401,7 +403,7 @@ concede %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: In a single Match, Mujeeb Ur Rahman has conceded the most runs (73), followed by Basil Thampi (71) and Tim Southee (67).
+- *Comment*: Mujeeb Ur Rahman holds the record of conceding the most runs (73) in a single Match, followed by Basil Thampi (71) and Tim Southee (67).
 
 \pagebreak
 
@@ -457,7 +459,7 @@ D %>%
 
 \pagebreak
 
-- Player with most Catches in IPL:
+- Players with most Catches in IPL:
 
 ```{r P16}
 D %>% 
@@ -480,7 +482,7 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
  
-- *Comment*: Dinesh Karthik has taken the most number of catches (109), followed by Suresh Raina (102) and MS Dhoni (98).
+- *Comment*: Dinesh Karthik has taken the most number of catches (109), followed by Suresh Raina (102) and MS Dhoni (98). AB de Villers (93), Kieron Pollard (82) and Dwayne Bravo (74) are the foreign players in this list.
 
 \pagebreak
 
@@ -506,7 +508,7 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: The Wicketkeeper MS Dhoni (23) tops the list, followed by two non-wicketkeeping skilled throwers and excellent fielders, Ravindra Jadheja (20) and Virat Kohli (17). 
+- *Comment*: The Wicketkeeper MS Dhoni (23) tops the list, followed by two non-wicketkeeping skilled throwers and excellent fielders, Ravindra Jadheja (20) and Virat Kohli (17). AB de Villers (14) and Dwayne Bravo (12) are the only foreign players in this list.
 
 \pagebreak
 
@@ -532,7 +534,7 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: MS Dhoni tops the list with most stumpings (38), followed by Robin Uthappa (32) and Dinesh Karthik (29). Adam Gilchrist and QUinton de Kock are the only foreign players in this list.
+- *Comment*: MS Dhoni tops the list with most stumpings (38), followed by Robin Uthappa (32) and Dinesh Karthik (29). Adam Gilchrist (16) and QUinton de Kock (8) are the only foreign players in this list.
 
 \pagebreak
 
@@ -547,7 +549,7 @@ M %>%
   summarize(total_win = n())%>%
   ggplot(aes(x = reorder(winner, total_win),y = total_win,fill = winner))+
   geom_bar(stat = "identity")+
-  geom_text(aes(label = total_win),size = 2.5,position=position_dodge(width=0.7), vjust=0.3, hjust=-0.2)+
+  geom_text(aes(label = total_win),size = 2.5, position = position_dodge(width=0.7), vjust=0.3, hjust=-0.2)+
   coord_flip()+
   labs(x = "Winning Team", y = "Number of wins", title = "Total Matches Won by a Team", fill = "IPL Team")+
   scale_y_continuous(limits = c(0,115))+
@@ -560,7 +562,7 @@ M %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians is the most successful IPL Team in terms of Wins, followed by Chennai Super Kings and Kolkata Knight Riders.
+- *Comment*: Mumbai Indians is the most successful IPL Team in terms of Wins (107), followed by Chennai Super Kings (100) and Kolkata Knight Riders (92).
 
 \pagebreak
 
@@ -585,7 +587,7 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians has scored the most runs in IPL 208-2019, followed by the "not-so-successful" team Royal Challengers Bangalore and Kings XI Punjab. 
+- *Comment*: Mumbai Indians has scored the most runs (29798) in IPL 2008-2019, followed by the "not-so-successful" team Royal Challengers Bangalore (28096) and Kings XI Punjab (27868). 
 
 \pagebreak
 
@@ -603,7 +605,7 @@ highest_total %>%
   scale_x_discrete(labels = rev(highest_total$batting_team))+
   geom_text(aes(label = total),size = 2.5, position = position_dodge(width = 0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Team", y = "Total", title = "Highest Team Totals", fill = "IPL Team")+
+  labs(x = "Team", y = "Total Score", title = "Highest Team Totals", fill = "IPL Team")+
   scale_y_continuous(limits = c(0,280))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -612,7 +614,7 @@ highest_total %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Royal Challengers Bangalore (RCB) holds the record of the highest team total by any team in an inning.
+- *Comment*: Royal Challengers Bangalore (263) holds the record of the highest team total by any team in an inning in IPL 2008-2019, followed by Kolkata Knight Riders (250) and Royal Challengers Bangalore (248). Royal Challengers Bangalore appears thrice in this list.
 
 \pagebreak
 
@@ -627,7 +629,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = team_sixers),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Team", y = "Sixers", title = "Total Sixes Hit by a Team", fill = "IPL Team")+
+  labs(x = "Team", y = "Number of Sixes", title = "Total Sixes Hit by a Team", fill = "IPL Team")+
   scale_y_continuous(limits = c(0, 1250))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -638,7 +640,7 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Having the top two six-hitters in the team, Royal Challengers Bangalore has unsurprisingly hit the most number of sixes in IPL 2008-2019.
+- *Comment*: Having the top two six-hitters in the team and , it comes as no surprise that Royal Challengers Bangalore has hit the most number of sixes in IPL 2008-2019, followed by Mumbai Indians (1095) and Kings XI Punjab (975).
 
 \pagebreak
 
@@ -653,7 +655,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = team_fours),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Team", y = "Fours", title = "Total Fours Hit by a Team", fill = "IPL Team")+
+  labs(x = "Team", y = "Number of Fours", title = "Total Fours Hit by a Team", fill = "IPL Team")+
   scale_y_continuous(limits = c(0, 2800))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -664,7 +666,7 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians has hit the most number of fours, followed by Kings XI Punjab and Kolkata Knight Riders.
+- *Comment*: Mumbai Indians has hit the most number of fours (2587), followed by Kings XI Punjab (2454) and Kolkata Knight Riders (2431).
 
 \pagebreak
 
@@ -679,7 +681,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = wickets_taken),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Team", y = "Runs", title = "Total Wickets Taken by a Team", fill = "IPL Team")+
+  labs(x = "Team", y = "Number of Wickets", title = "Total Wickets Taken by a Team", fill = "IPL Team")+
   scale_y_continuous(limits = c(0, 1150))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -690,7 +692,7 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians has taken the most number of wickets, followed by Royal Challengers Bangalore and Chennai Super Kings.
+- *Comment*: Mumbai Indians has taken the most number of wickets (1035), followed by Royal Challengers Bangalore (935) and Chennai Super Kings (934).
 
 \pagebreak
 
@@ -705,7 +707,7 @@ D %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = noballs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Team", y = "Runs", title = "Total No-balls by a Team", fill = "IPL Team")+
+  labs(x = "Team", y = "number of No-balls", title = "Total No-balls by a Team", fill = "IPL Team")+
   scale_y_continuous(limits = c(0, 110))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -716,7 +718,7 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians Playes has bowled the most number of no-balls in IPL.
+- *Comment*: Mumbai Indians Playes has bowled the most number of no-balls (104) in IPL, followed by Kings XI Punjab (95) and Royal Challengers Bangalore (90).
 
 \pagebreak
 
@@ -742,7 +744,7 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians has conceded the most number of runs, followed by RCB and KXIP.
+- *Comment*: Mumbai Indians has conceded the most number of extra runs (1608), followed by Royal Challengers Bangalore (1557) and Kings XI Punjab (1452).
 
 \pagebreak
 
@@ -771,7 +773,7 @@ toss %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Kolkata Knight Riders has successfully chased the most number of matches, followed by MI and RCB.
+- *Comment*: Kolkata Knight Riders has successfully chased the most number of matches (58), followed by Mumbai Indians (51), Royal Challengers Bangalore (49) and Chennai Super Kings (49).
 
 \pagebreak
 
@@ -798,7 +800,7 @@ toss %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians has successfully defended the most number of matches, followed by CSK and KXIP.
+- *Comment*: Mumbai Indians has successfully defended the most number of matches (58), followed by Chennai Super Kings (51) and Kings XI Punjab (38).
 
 \pagebreak
 
@@ -824,7 +826,7 @@ M %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: The most number of matches were played in IPL-2013, compared to other seasons.
+- *Comment*: IPL-2013 has seen the most number of matches (76), followed by IPL-2012 (74) and IPL-2011 (73).
 
 \pagebreak
 
@@ -841,7 +843,7 @@ full_data %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = runs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Season", y = "Runs", title = "Highest Run Scorer", fill = "Batsman")+
+  labs(x = "Season", y = "Runs", title = "Highest Run Scorer in a Season", fill = "Batsman")+
   scale_y_continuous(limits = c(0,1000))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -850,7 +852,7 @@ full_data %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Virat Kohli has been the highest run scorer in a single season in IPL-2016 scoring a total of 973 runs.
+- *Comment*: Among all IPL seasons, Virat Kohli has scored the most number of runs in a single season (973) in IPL-2016 scoring a total of 973 runs, followed by Kane Williamson (747) in IPL-2018, Michael Hussey (733) in IPL-2013 and Chris Gayle (733) in IPL-2012.
 
 \pagebreak
 
@@ -866,7 +868,7 @@ full_data %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = wickets),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Season", y = "Runs", title = "Highest Wicket Taker", fill = "Bowler")+
+  labs(x = "Season", y = "Number of Wickets", title = "Highest Wicket Taker in a Season", fill = "Bowler")+
   scale_y_continuous(limits = c(0,33))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -875,7 +877,7 @@ full_data %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Dwayne Bravo has been the leading wicket taker in a single season in IPL-2013 with 32 wickets.
+- *Comment*: Among all seasons, Dwayne Bravo has been the leading wicket taker in a single season in IPL-2013 taking a total of 32 wickets, followed by Lasith Mailnga (28) in IPL-2011, Imran Tahir (26) in IPL-2019, Bhuvaneshwar Kumar (26) in IPL-2017 and Dwayne Bravo (26) in IPL-2015.
 
 \pagebreak
 
@@ -893,7 +895,7 @@ six_hitter %>%
   geom_text(aes(label = runs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   scale_x_discrete(labels = six_hitter$season)+
   coord_flip()+
-  labs(x = "Season", y = "Runs", title = "Most Six Hitter", fill = "Batsman")+
+  labs(x = "Season", y = "Number of Sixes", title = "Most Six Hitter in a Season", fill = "Batsman")+
   scale_y_continuous(limits = c(0,60))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -902,7 +904,7 @@ six_hitter %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Chris Gayle has been the most six hitter in a single season in IPL-2012 hitting 59 sixes. He is also the leading six hitter of three other seasons IPL-2011, IPL-2013 and IPL-2015.
+- *Comment*: Among all seasons, Chris Gayle holds the record of hitting the most number of sixes in a single season in IPL-2012 hitting a total of 59 sixes, followed by Andre Russell hitting 51 sixes in IPL-2019. Chris Gayle is also the leading six hitter of three other seasons IPL-2011, IPL-2013 and IPL-2015.
 
 \pagebreak
 
@@ -920,7 +922,7 @@ four_hitter %>%
   geom_text(aes(label = runs),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   scale_x_discrete(labels = four_hitter$season)+
   coord_flip()+
-  labs(x = "Season", y = "Runs", title = "Most Boundary Hitter", fill = "Batsman")+
+  labs(x = "Season", y = "Number of Fours", title = "Most Boundary Hitter", fill = "Batsman")+
   scale_y_continuous(limits = c(0,90))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -929,7 +931,7 @@ four_hitter %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: David Warner has been the most boundary hitter in a single season in IPL-2016, closely followed by Sachin Tendulkar in IPL-2010.
+- *Comment*: Among all seasons, David Warner holds the record of being the most boundary hitter in a single season in IPL-2016 hitting a total of 88 boundaries, closely followed by Sachin Tendulkar hitting 86 boundaries in IPL-2010 and Michael Hussey hitting 81 boundaries in IPL-2013.
 
 \pagebreak
 
@@ -944,7 +946,7 @@ full_data %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = sixes_hit),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Season", y = "Overboundaries", title = "Total Sixes Hit", fill = "Season")+
+  labs(x = "Season", y = "Number of Overboundaries", title = "Total Sixes Hit", fill = "Season")+
   scale_y_continuous(limits = c(0,900))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -953,7 +955,7 @@ full_data %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: IPL-2018 has seen the most number of overboundaries amounting to 869.
+- *Comment*: IPL-2018 has seen the most number of overboundaries amounting to 869, followed by IPL-2019 (778) and IPL-2012 (733).
 
 \pagebreak
 
@@ -968,7 +970,7 @@ full_data %>%
   geom_bar(stat = "identity")+
   geom_text(aes(label = fours_hit),size = 2.5, position = position_dodge(width=0.7), vjust = 0.3, hjust = -0.2)+
   coord_flip()+
-  labs(x = "Season", y = "Boundaries", title = "Total Fours Hit", fill = "Season")+
+  labs(x = "Season", y = "Number of Boundaries", title = "Total Fours Hit", fill = "Season")+
   scale_y_continuous(limits = c(0,2100))+
   theme_bw()+
   theme(plot.title = element_text(face = "italic", size = 12),
@@ -977,7 +979,7 @@ full_data %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: IPL-2013 has seen the most number of boundaries, a total of 2054.
+- *Comment*: IPL-2013 has seen the most number of boundaries numbering up to 2052, followed by IPL-2011 (1916) and IPL-2012 (1911).
 
 \pagebreak
 
@@ -1001,7 +1003,7 @@ M %>%
         plot.background = element_rect(colour = "black"))
 ```
 
-- *Comment*: Highest number of matches were played in Eden Gardens Cricket Stadium in Kolkata, followed by Wankhede Stadium in Mumbai and M Chinnaswamy Stadium in Bangalore.
+- *Comment*: Highest number of matches were played in Eden Gardens Cricket Stadium (77) in Kolkata, followed by Wankhede Stadium (73) in Mumbai and M Chinnaswamy Stadium (73) in Bangalore.
 
 \pagebreak
 
@@ -1032,4 +1034,4 @@ data.frame(umpire = union_all(M$umpire1, M$umpire2)) %>%
 
 ## Conclusion
 
-We have successfully performed an EDA by exploring thorugh various general, batting and bowling queries grouping them by player, team, season and others, and answering them in a visual way for ease of capturing the data analysis and statistics. 
+We have successfully performed an Exploratory Data Analysis by exploring thorugh various general, batting and bowling queries grouping them by player, team, season and others, and answering them in a visual way for ease of capturing the data analysis and statistics. 
