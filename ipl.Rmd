@@ -1,12 +1,10 @@
 ---
 title: "IPL 2008-2019 Dataset Analysis"
 author: "Debmalya Biswas"
-date: "`r Sys.Date()`"
+date: "2022-11-02"
 output:
   pdf_document:
     latex_engine: xelatex
-    df_print: paged
-  html_document:
     df_print: paged
 ---
 
@@ -29,6 +27,7 @@ M <- read.csv("C:/Users/Hrik/Desktop/VISU/VISUPROJ/IPL/matches.csv")
 # Player-wise <- P
 # Team-wise <- T
 # Venue-wise <- V
+# Umpire-wise <- U
 
 library(tidyverse)
 D <- D %>% 
@@ -80,7 +79,7 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: The "Run-Machine" Virat Kohli tops the list with 5429 runs, followed closely by Suresh Raina with 5407 runs and then Rohit Sharma with 4914 runs. David Warner (4741), Chris Gayle (4535) and AB de Villers (4415) are the only foreign players in this list.
+-   *Comment*: The "Run-Machine" Virat Kohli tops the list with 5429 runs, followed closely by Suresh Raina with 5407 runs and then Rohit Sharma with 4914 runs. David Warner (4741), Chris Gayle (4535) and AB de Villers (4415) are the only foreign players in this list.
 
 \pagebreak
 
@@ -106,7 +105,7 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Lasith Malinga tops the most wicket takers list with 170 wickets, followed by Amit Mishra (156) and Harbhajan Singh (150). Dwayne Bravo (147) and Sunil Narine (122) are the only other Overseas players in this list.
+-   *Comment*: Lasith Malinga tops the most wicket takers list with 170 wickets, followed by Amit Mishra (156) and Harbhajan Singh (150). Dwayne Bravo (147) and Sunil Narine (122) are the only other Overseas players in this list.
 
 \pagebreak
 
@@ -132,7 +131,7 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: The "Universe Boss" Chris Gayle tops this list hitting a humongous number of 326 sixes in his IPL career 2008-2019, "not-so-close"-ly followed by AB de Villers (212) and Mahendra Singh Dhoni (207). Other foreign players in this list are David Warner (181), Shane Watson (177) and Kieron Pollard (174).
+-   *Comment*: The "Universe Boss" Chris Gayle tops this list hitting a humongous number of 326 sixes in his IPL career 2008-2019, "not-so-close"-ly followed by AB de Villers (212) and Mahendra Singh Dhoni (207). Other foreign players in this list are David Warner (181), Shane Watson (177) and Kieron Pollard (174).
 
 \pagebreak
 
@@ -158,7 +157,7 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: "Gabbar" Shikhar Dhawan has hit the most boundaries (526) in IPL 2008-2019, followed by Suresh Raina (495) and Gautam Gambhir (492). David Warner (459) and Chris Gayle (373) are the only foreign players in this list.
+-   *Comment*: "Gabbar" Shikhar Dhawan has hit the most boundaries (526) in IPL 2008-2019, followed by Suresh Raina (495) and Gautam Gambhir (492). David Warner (459) and Chris Gayle (373) are the only foreign players in this list.
 
 \pagebreak
 
@@ -185,7 +184,7 @@ indv %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Chris Gayle has scored the most runs, a humongous 175 in an inning, followed by Brendon McCullum (158) and AB de Villers (133). Rishabh Pant (130), Murli Vijay (127) and Virendra Sehwag (122) are the only Indian players in this list.
+-   *Comment*: Chris Gayle has scored the most runs, a humongous 175 in an inning, followed by Brendon McCullum (158) and AB de Villers (133). Rishabh Pant (130), Murli Vijay (127) and Virendra Sehwag (122) are the only Indian players in this list.
 
 \pagebreak
 
@@ -214,7 +213,7 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Chris Gayle has hit a total of 7 IPL(2008-2019) Centuries in this 20 over format league, followed by Virat Kohli (5) being the only Indian player in the list.
+-   *Comment*: Chris Gayle has hit a total of 7 IPL(2008-2019) Centuries in this 20 over format league, followed by Virat Kohli (5) being the only Indian player in the list.
 
 \pagebreak
 
@@ -243,8 +242,8 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: David Warner has been the most consistent player in IPL 2008-2019 with the most number of fifties (48), followed by Virat Kohli (42) and Suresh Raina (39). AB de Villers with 36 fifties and Chris Gayle with 34 fifties are the only foreign players in the list.
- 
+-   *Comment*: David Warner has been the most consistent player in IPL 2008-2019 with the most number of fifties (48), followed by Virat Kohli (42) and Suresh Raina (39). AB de Villers with 36 fifties and Chris Gayle with 34 fifties are the only foreign players in the list.
+
 \pagebreak
 
 -   IPL Players with Most Sixes Hit in a Match:
@@ -271,7 +270,7 @@ six_freqs %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Not to anyone's surprise, Chris Gayle tops the list of hitting the most number of sixes (17) in a single match, followed by Brendon McCullum (13), Chris Gayle (13) and then Chris Gayle (12). Chris Gayle appears 4 times in this list. Murli Vijay (11) and Shreyas Iyer (10) are the only Indians in the list.
+-   *Comment*: Not to anyone's surprise, Chris Gayle tops the list of hitting the most number of sixes (17) in a single match, followed by Brendon McCullum (13), Chris Gayle (13) and then Chris Gayle (12). Chris Gayle appears 4 times in this list. Murli Vijay (11) and Shreyas Iyer (10) are the only Indians in the list.
 
 \pagebreak
 
@@ -296,11 +295,11 @@ M %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Chris Gayle has been awarded Man of the Match 21 times, followed by AB de Villers (20) and Rohit Sharma (17). David Warner (17), Shane Watson (15) and Michael Hussey (12) are the only foreign players in this list.
+-   *Comment*: Chris Gayle has been awarded Man of the Match 21 times, followed by AB de Villers (20) and Rohit Sharma (17). David Warner (17), Shane Watson (15) and Michael Hussey (12) are the only foreign players in this list.
 
 \pagebreak
 
-- Top 10 "Bowled" (direct dismissal) Wicket Takers in IPL:
+-   Top 10 "Bowled" (direct dismissal) Wicket Takers in IPL:
 
 ```{r P10}
 D %>% 
@@ -322,11 +321,11 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Lasith Malinga has the most number of direct "Bowled" dismissals numbering up to 63 taking a huge lead, followed by Piyush chawla (43), Sunil Narine (35) and Bhuvaneshwar Kumar (35). Dale Steyn (26) is the only other foreign player in this list.
+-   *Comment*: Lasith Malinga has the most number of direct "Bowled" dismissals numbering up to 63 taking a huge lead, followed by Piyush chawla (43), Sunil Narine (35) and Bhuvaneshwar Kumar (35). Dale Steyn (26) is the only other foreign player in this list.
 
 \pagebreak
 
-- Top 10 Powerplay Bowlers in IPL:
+-   Top 10 Powerplay Bowlers in IPL:
 
 ```{r P11}
 D %>% 
@@ -348,12 +347,11 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Zaheer Khan has taken 52 wickets in powerplay overs the most by any bowler, followed by Bhuvaneshwar Kumar (46)
-and Umesh Yadav (45). Lasith malinga (37) and Morne Morkel (36) are the only foreign players in this list.
+-   *Comment*: Zaheer Khan has taken 52 wickets in powerplay overs the most by any bowler, followed by Bhuvaneshwar Kumar (46) and Umesh Yadav (45). Lasith malinga (37) and Morne Morkel (36) are the only foreign players in this list.
 
 \pagebreak
 
-- Top 10 Death Bowlers in IPL:
+-   Top 10 Death Bowlers in IPL:
 
 ```{r P12}
 D %>% 
@@ -375,12 +373,11 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-
-- *Comment*: Lasith Malinga tops the list by taking a total of 112 wickets in Death Overs only, followed by Dwayne Bravo (95) and Bhuvaneshwar Kumar (80). Dale Steyn (52) is the only other foreign player in this list.
+-   *Comment*: Lasith Malinga tops the list by taking a total of 112 wickets in Death Overs only, followed by Dwayne Bravo (95) and Bhuvaneshwar Kumar (80). Dale Steyn (52) is the only other foreign player in this list.
 
 \pagebreak
 
-- Most Runs conceded by a Bowler in a Match:
+-   Most Runs conceded by a Bowler in a Match:
 
 ```{r P13}
 concede <- D %>% 
@@ -403,11 +400,11 @@ concede %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Mujeeb Ur Rahman holds the record of conceding the most runs (73) in a single Match, followed by Basil Thampi (71) and Tim Southee (67).
+-   *Comment*: Mujeeb Ur Rahman holds the record of conceding the most runs (73) in a single Match, followed by Basil Thampi (71) and Tim Southee (67).
 
 \pagebreak
 
-- Most Dot Balls by a Bowler in IPL:
+-   Most Dot Balls by a Bowler in IPL:
 
 ```{r P14}
 D %>% 
@@ -429,11 +426,11 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Harbhajan Singh has delivered 1290 dot balls in total the most by any bowler in IPL, followed by Lasith Malinga (1211) and Bhuvaneshwar Kumar (1175). Dale Steyn (1038) is the only other foreign player in this list.
+-   *Comment*: Harbhajan Singh has delivered 1290 dot balls in total the most by any bowler in IPL, followed by Lasith Malinga (1211) and Bhuvaneshwar Kumar (1175). Dale Steyn (1038) is the only other foreign player in this list.
 
 \pagebreak
 
-- Most No-balls by Bowlers in IPL:
+-   Most No-balls by Bowlers in IPL:
 
 ```{r P15}
 D %>% 
@@ -455,11 +452,11 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Sreesanth has bowled the most no-balls (23), followed by Jasprit Bumrah (22) and Ishant Sharma (21).
+-   *Comment*: Sreesanth has bowled the most no-balls (23), followed by Jasprit Bumrah (22) and Ishant Sharma (21).
 
 \pagebreak
 
-- Players with most Catches in IPL:
+-   Players with most Catches in IPL:
 
 ```{r P16}
 D %>% 
@@ -481,12 +478,12 @@ D %>%
         legend.background = element_rect(colour = "black", fill = "#FFFFCC"),
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
- 
-- *Comment*: Dinesh Karthik has taken the most number of catches (109), followed by Suresh Raina (102) and MS Dhoni (98). AB de Villers (93), Kieron Pollard (82) and Dwayne Bravo (74) are the foreign players in this list.
+
+-   *Comment*: Dinesh Karthik has taken the most number of catches (109), followed by Suresh Raina (102) and MS Dhoni (98). AB de Villers (93), Kieron Pollard (82) and Dwayne Bravo (74) are the foreign players in this list.
 
 \pagebreak
 
-- Players with most Run Outs in IPL:
+-   Players with most Run Outs in IPL:
 
 ```{r P17}
 D %>% 
@@ -508,11 +505,11 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: The Wicketkeeper MS Dhoni (23) tops the list, followed by two non-wicketkeeping skilled throwers and excellent fielders, Ravindra Jadheja (20) and Virat Kohli (17). AB de Villers (14) and Dwayne Bravo (12) are the only foreign players in this list.
+-   *Comment*: The Wicketkeeper MS Dhoni (23) tops the list, followed by two non-wicketkeeping skilled throwers and excellent fielders, Ravindra Jadheja (20) and Virat Kohli (17). AB de Villers (14) and Dwayne Bravo (12) are the only foreign players in this list.
 
 \pagebreak
 
-- Wicketkeepers with most Stumpings in IPL:
+-   Wicketkeepers with most Stumpings in IPL:
 
 ```{r P18}
 D %>% 
@@ -534,7 +531,7 @@ D %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: MS Dhoni tops the list with most stumpings (38), followed by Robin Uthappa (32) and Dinesh Karthik (29). Adam Gilchrist (16) and QUinton de Kock (8) are the only foreign players in this list.
+-   *Comment*: MS Dhoni tops the list with most stumpings (38), followed by Robin Uthappa (32) and Dinesh Karthik (29). Adam Gilchrist (16) and QUinton de Kock (8) are the only foreign players in this list.
 
 \pagebreak
 
@@ -562,7 +559,7 @@ M %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians is the most successful IPL Team in terms of Wins (107), followed by Chennai Super Kings (100) and Kolkata Knight Riders (92).
+-   *Comment*: Mumbai Indians is the most successful IPL Team in terms of Wins (107), followed by Chennai Super Kings (100) and Kolkata Knight Riders (92).
 
 \pagebreak
 
@@ -587,7 +584,7 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians has scored the most runs (29798) in IPL 2008-2019, followed by the "not-so-successful" team Royal Challengers Bangalore (28096) and Kings XI Punjab (27868). 
+-   *Comment*: Mumbai Indians has scored the most runs (29798) in IPL 2008-2019, followed by the "not-so-successful" team Royal Challengers Bangalore (28096) and Kings XI Punjab (27868).
 
 \pagebreak
 
@@ -614,11 +611,11 @@ highest_total %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Royal Challengers Bangalore (263) holds the record of the highest team total by any team in an inning in IPL 2008-2019, followed by Kolkata Knight Riders (250) and Royal Challengers Bangalore (248). Royal Challengers Bangalore appears thrice in this list.
+-   *Comment*: Royal Challengers Bangalore (263) holds the record of the highest team total by any team in an inning in IPL 2008-2019, followed by Kolkata Knight Riders (250) and Royal Challengers Bangalore (248). Royal Challengers Bangalore appears thrice in this list.
 
 \pagebreak
 
-- Total Overboundaries by Teams in IPL:
+-   Total Overboundaries by Teams in IPL:
 
 ```{r T4}
 D %>% 
@@ -640,11 +637,11 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Having the top two six-hitters in the team and , it comes as no surprise that Royal Challengers Bangalore has hit the most number of sixes in IPL 2008-2019, followed by Mumbai Indians (1095) and Kings XI Punjab (975).
+-   *Comment*: Having the top two six-hitters in the team and , it comes as no surprise that Royal Challengers Bangalore has hit the most number of sixes in IPL 2008-2019, followed by Mumbai Indians (1095) and Kings XI Punjab (975).
 
 \pagebreak
 
-- Total Boundaries by Teams in IPL:
+-   Total Boundaries by Teams in IPL:
 
 ```{r T5}
 D %>% 
@@ -666,11 +663,11 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians has hit the most number of fours (2587), followed by Kings XI Punjab (2454) and Kolkata Knight Riders (2431).
+-   *Comment*: Mumbai Indians has hit the most number of fours (2587), followed by Kings XI Punjab (2454) and Kolkata Knight Riders (2431).
 
 \pagebreak
 
-- Total Wickets Taken by Teams in IPL:
+-   Total Wickets Taken by Teams in IPL:
 
 ```{r T6}
 D %>% 
@@ -692,11 +689,11 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians has taken the most number of wickets (1035), followed by Royal Challengers Bangalore (935) and Chennai Super Kings (934).
+-   *Comment*: Mumbai Indians has taken the most number of wickets (1035), followed by Royal Challengers Bangalore (935) and Chennai Super Kings (934).
 
 \pagebreak
 
-- Total No-balls by Teams in IPL:
+-   Total No-balls by Teams in IPL:
 
 ```{r T7}
 D %>% 
@@ -718,11 +715,11 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians Playes has bowled the most number of no-balls (104) in IPL, followed by Kings XI Punjab (95) and Royal Challengers Bangalore (90).
+-   *Comment*: Mumbai Indians Playes has bowled the most number of no-balls (104) in IPL, followed by Kings XI Punjab (95) and Royal Challengers Bangalore (90).
 
 \pagebreak
 
-- Most Extra Runs conceded by Teams in IPL:
+-   Most Extra Runs conceded by Teams in IPL:
 
 ```{r T8}
 D %>% 
@@ -744,11 +741,11 @@ D %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians has conceded the most number of extra runs (1608), followed by Royal Challengers Bangalore (1557) and Kings XI Punjab (1452).
+-   *Comment*: Mumbai Indians has conceded the most number of extra runs (1608), followed by Royal Challengers Bangalore (1557) and Kings XI Punjab (1452).
 
 \pagebreak
 
-- Best Chasing Team in IPL:
+-   Best Chasing Team in IPL:
 
 ```{r T9}
 toss <- M %>% 
@@ -773,11 +770,11 @@ toss %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Kolkata Knight Riders has successfully chased the most number of matches (58), followed by Mumbai Indians (51), Royal Challengers Bangalore (49) and Chennai Super Kings (49).
+-   *Comment*: Kolkata Knight Riders has successfully chased the most number of matches (58), followed by Mumbai Indians (51), Royal Challengers Bangalore (49) and Chennai Super Kings (49).
 
 \pagebreak
 
-- Best Defending Team in IPL:
+-   Best Defending Team in IPL:
 
 ```{r T10}
 toss %>% 
@@ -800,7 +797,7 @@ toss %>%
         legend.text = element_text(size = 8))
 ```
 
-- *Comment*: Mumbai Indians has successfully defended the most number of matches (58), followed by Chennai Super Kings (51) and Kings XI Punjab (38).
+-   *Comment*: Mumbai Indians has successfully defended the most number of matches (58), followed by Chennai Super Kings (51) and Kings XI Punjab (38).
 
 \pagebreak
 
@@ -826,7 +823,7 @@ M %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: IPL-2013 has seen the most number of matches (76), followed by IPL-2012 (74) and IPL-2011 (73).
+-   *Comment*: IPL-2013 has seen the most number of matches (76), followed by IPL-2012 (74) and IPL-2011 (73).
 
 \pagebreak
 
@@ -852,7 +849,7 @@ full_data %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Among all IPL seasons, Virat Kohli has scored the most number of runs in a single season (973) in IPL-2016 scoring a total of 973 runs, followed by Kane Williamson (747) in IPL-2018, Michael Hussey (733) in IPL-2013 and Chris Gayle (733) in IPL-2012.
+-   *Comment*: Among all IPL seasons, Virat Kohli has scored the most number of runs in a single season (973) in IPL-2016 scoring a total of 973 runs, followed by Kane Williamson (747) in IPL-2018, Michael Hussey (733) in IPL-2013 and Chris Gayle (733) in IPL-2012.
 
 \pagebreak
 
@@ -877,7 +874,7 @@ full_data %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Among all seasons, Dwayne Bravo has been the leading wicket taker in a single season in IPL-2013 taking a total of 32 wickets, followed by Lasith Mailnga (28) in IPL-2011, Imran Tahir (26) in IPL-2019, Bhuvaneshwar Kumar (26) in IPL-2017 and Dwayne Bravo (26) in IPL-2015.
+-   *Comment*: Among all seasons, Dwayne Bravo has been the leading wicket taker in a single season in IPL-2013 taking a total of 32 wickets, followed by Lasith Mailnga (28) in IPL-2011, Imran Tahir (26) in IPL-2019, Bhuvaneshwar Kumar (26) in IPL-2017 and Dwayne Bravo (26) in IPL-2015.
 
 \pagebreak
 
@@ -904,7 +901,7 @@ six_hitter %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Among all seasons, Chris Gayle holds the record of hitting the most number of sixes in a single season in IPL-2012 hitting a total of 59 sixes, followed by Andre Russell hitting 51 sixes in IPL-2019. Chris Gayle is also the leading six hitter of three other seasons IPL-2011, IPL-2013 and IPL-2015.
+-   *Comment*: Among all seasons, Chris Gayle holds the record of hitting the most number of sixes in a single season in IPL-2012 hitting a total of 59 sixes, followed by Andre Russell hitting 51 sixes in IPL-2019. Chris Gayle is also the leading six hitter of three other seasons IPL-2011, IPL-2013 and IPL-2015.
 
 \pagebreak
 
@@ -931,7 +928,7 @@ four_hitter %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: Among all seasons, David Warner holds the record of being the most boundary hitter in a single season in IPL-2016 hitting a total of 88 boundaries, closely followed by Sachin Tendulkar hitting 86 boundaries in IPL-2010 and Michael Hussey hitting 81 boundaries in IPL-2013.
+-   *Comment*: Among all seasons, David Warner holds the record of being the most boundary hitter in a single season in IPL-2016 hitting a total of 88 boundaries, closely followed by Sachin Tendulkar hitting 86 boundaries in IPL-2010 and Michael Hussey hitting 81 boundaries in IPL-2013.
 
 \pagebreak
 
@@ -955,7 +952,7 @@ full_data %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: IPL-2018 has seen the most number of overboundaries amounting to 869, followed by IPL-2019 (778) and IPL-2012 (733).
+-   *Comment*: IPL-2018 has seen the most number of overboundaries amounting to 869, followed by IPL-2019 (778) and IPL-2012 (733).
 
 \pagebreak
 
@@ -979,7 +976,7 @@ full_data %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: IPL-2013 has seen the most number of boundaries numbering up to 2052, followed by IPL-2011 (1916) and IPL-2012 (1911).
+-   *Comment*: IPL-2013 has seen the most number of boundaries numbering up to 2052, followed by IPL-2011 (1916) and IPL-2012 (1911).
 
 \pagebreak
 
@@ -1003,11 +1000,11 @@ M %>%
         plot.background = element_rect(colour = "black"))
 ```
 
-- *Comment*: Highest number of matches were played in Eden Gardens Cricket Stadium (77) in Kolkata, followed by Wankhede Stadium (73) in Mumbai and M Chinnaswamy Stadium (73) in Bangalore.
+-   *Comment*: Highest number of matches were played in Eden Gardens Cricket Stadium (77) in Kolkata, followed by Wankhede Stadium (73) in Mumbai and M Chinnaswamy Stadium (73) in Bangalore.
 
 \pagebreak
 
-- Top 10 Umpires who officiated most number of Matches on-field:
+-   Top 10 Umpires who officiated most number of Matches on-field:
 
 ```{r U1}
 data.frame(umpire = union_all(M$umpire1, M$umpire2)) %>% 
@@ -1028,10 +1025,10 @@ data.frame(umpire = union_all(M$umpire1, M$umpire2)) %>%
         panel.background = element_rect(fill = "#FFFFCC"))
 ```
 
-- *Comment*: S Ravi has officiated the most number of 106 IPL matches, followed by Dharmasena (87) and Shamsuddin (73).
+-   *Comment*: S Ravi has officiated the most number of 106 IPL matches, followed by Dharmasena (87) and Shamsuddin (73).
 
 \pagebreak
 
 ## Conclusion
 
-We have successfully performed an Exploratory Data Analysis by exploring thorugh various general, batting and bowling queries grouping them by player, team, season and others, and answering them in a visual way for ease of capturing the data analysis and statistics. 
+We have successfully performed an Exploratory Data Analysis by exploring thorugh various general, batting and bowling queries grouping them by player, team, season and others, and answering them in a visual way for ease of capturing the data analysis and statistics.
