@@ -4,3 +4,7 @@ In this visualization project, I have performed Exploratory Data Analysis (**EDA
 that might interest an inquisitive cricket mind and answered them in a visual way for ease of capturing the data analysis results.
 
 **Dataset Source**: <https://www.kaggle.com/anuranroy/ipldatasets>
+
+The csv files used for data analysis are deliveries2.csv and matches.csv. 
+
+The R code for the Exploratory Data Analysis is done in file ipl.R and the pdf output is in file ipl.pdf.
