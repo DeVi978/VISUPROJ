@@ -6,3 +6,5 @@ that might interest an inquisitive cricket mind and answered them in a visual wa
 **Dataset Source**: <https://www.kaggle.com/anuranroy/ipldatasets>. The csv files used for this Exploratory Data Analysis are deliveries2.csv and matches.csv. 
 
 **Data Analysis**: The R code for the Exploratory Data Analysis of the above datasets is in file ipl.Rmd and the pdf output is in file ipl.pdf.
+
+**Shiny App Link**: <https://lllf.shinyapps.io/ipl_2008-2019/>
