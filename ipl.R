@@ -1014,6 +1014,7 @@ server <- function(input, output) {
                 panel.background = element_rect(fill = "#FFFFCC"))
       }
       else if(input$yq == "Total Sixes Hit Each Season"){
+        Season <- as.character(sort(unique(M$season)))
         full_data %>%
           filter(batsman_runs == 6) %>% 
           group_by(season) %>% 
@@ -1031,6 +1032,7 @@ server <- function(input, output) {
                 panel.background = element_rect(fill = "#FFFFCC"))
       }
       else{
+        Season <- as.character(sort(unique(M$season)))
         full_data %>%
           filter(batsman_runs == 4) %>% 
           group_by(season) %>% 
